@@ -14,7 +14,7 @@ data class NoteItem(
     @ColumnInfo (name = "content")
     val content: String,
     @ColumnInfo (name = "time")
-    val timt: String,
+    val time: String,
     @ColumnInfo (name = "category")
     val category: String,
 
