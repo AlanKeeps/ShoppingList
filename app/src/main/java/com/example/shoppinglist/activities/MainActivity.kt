@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
                     Log.d("MyLog", "list")
                 }
                 R.id.new_item ->{
-                    Log.d("MyLog", "new")
+                    FragmentManager.currentFrag?.onClickNew()
                 }
             }
             true

@@ -11,14 +11,17 @@ class MainViewModel(dataBase: MainDataBase) : ViewModel() {
     fun insertNote(note: NoteItem) = viewModelScope.launch {
         dao.insertNote(note)
     }
+    fun deleteNote(id: Int) = viewModelScope.launch {
+        dao.deleteNote(id)
+    }
 
     class MainViewModelFactory(val dataBase: MainDataBase) : ViewModelProvider.Factory{
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if(modelClass.isAssignableFrom(ViewModel::class.java)){
+            if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return MainViewModel(dataBase) as T
+                return MainViewModel(dataBase)as T
             }
             throw IllegalArgumentException("Unknown ViewModelClass")
-        }
+           }
     }
 }
