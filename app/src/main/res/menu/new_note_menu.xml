@@ -6,7 +6,7 @@
         android:title="@string/save"
         android:id="@+id/id_save"
         android:icon="@drawable/ic_save"
-        android:orderInCategory="2"
+        android:orderInCategory="3"
         app:showAsAction="ifRoom"
         />
 
@@ -14,8 +14,15 @@
         android:title="@string/bold"
         android:id="@+id/id_bold"
         android:icon="@drawable/ic_bold"
-        android:orderInCategory="1"
+        android:orderInCategory="2"
         app:showAsAction="ifRoom"
         />
 
+    <item
+        android:title="@string/color_picker"
+        android:id="@+id/id_color"
+        android:icon="@drawable/ic_color"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom"
+        />
 </menu>
