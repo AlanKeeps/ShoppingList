@@ -6,17 +6,20 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppinglist.R
 import com.example.shoppinglist.databinding.ActivityShopListBinding
 import com.example.shoppinglist.db.MainViewModel
+import com.example.shoppinglist.db.ShopListItemAdapter
 import com.example.shoppinglist.entities.ShopListItem
 import com.example.shoppinglist.entities.ShopListNameItem
 
-class ShopListActivity : AppCompatActivity() {
+class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
     private lateinit var binding: ActivityShopListBinding
     private var shopListNameItem: ShopListNameItem? = null
     private lateinit var saveItem: MenuItem
     private var edItem: EditText? = null
+    private var adapter: ShopListItemAdapter? = null
 
     private val mainViewModel: MainViewModel by viewModels {
         MainViewModel.MainViewModelFactory((applicationContext as MainApp).database)
@@ -27,6 +30,8 @@ class ShopListActivity : AppCompatActivity() {
         binding = ActivityShopListBinding.inflate(layoutInflater)
         setContentView(binding.root)
         init()
+        initRcView()
+        listItemObserver()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -56,7 +61,20 @@ class ShopListActivity : AppCompatActivity() {
             shopListNameItem?.id!!,
             0
         )
+        edItem?.setText("")
         mainViewModel.insertShopItem(item)
+    }
+
+    private fun listItemObserver(){
+        mainViewModel.getAllItemsFromList(shopListNameItem?.id!!).observe(this, {
+            adapter?.submitList(it)
+        })
+    }
+
+    private fun initRcView() = with(binding){
+        adapter = ShopListItemAdapter(this@ShopListActivity)
+        rcView.layoutManager = LinearLayoutManager(this@ShopListActivity)
+        rcView.adapter = adapter
     }
 
     private fun expandActionView(): MenuItem.OnActionExpandListener{
@@ -82,5 +100,17 @@ class ShopListActivity : AppCompatActivity() {
 
     companion object{
         const val SHOP_LIST_NAME = "shop_list_name"
+    }
+
+    override fun deleteItem(id: Int) {
+
+    }
+
+    override fun editItem(shopListName: ShopListNameItem) {
+
+    }
+
+    override fun onClickItem(shopListName: ShopListNameItem) {
+
     }
 }
