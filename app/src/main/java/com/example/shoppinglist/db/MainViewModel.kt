@@ -2,6 +2,7 @@ package com.example.shoppinglist.db
 
 import androidx.lifecycle.*
 import com.example.shoppinglist.entities.NoteItem
+import com.example.shoppinglist.entities.ShopListItem
 import com.example.shoppinglist.entities.ShopListNameItem
 import kotlinx.coroutines.launch
 
@@ -15,6 +16,9 @@ class MainViewModel(dataBase: MainDataBase) : ViewModel() {
     }
     fun insertShopListName(listName: ShopListNameItem) = viewModelScope.launch {
         dao.insertShopListName(listName)
+    }
+    fun insertShopItem(shopListItem: ShopListItem) = viewModelScope.launch {
+        dao.insertItem(shopListItem)
     }
     fun updateNote(note: NoteItem) = viewModelScope.launch {
         dao.updateNote(note)
