@@ -1,5 +1,6 @@
 package com.example.shoppinglist.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -15,6 +16,7 @@ import com.example.shoppinglist.db.ShopListItemAdapter
 import com.example.shoppinglist.dialogs.EditListItemDialog
 import com.example.shoppinglist.entities.ShopListItem
 import com.example.shoppinglist.entities.ShopListNameItem
+import com.example.shoppinglist.utils.ShareHelper
 
 class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
     private lateinit var binding: ActivityShopListBinding
@@ -47,8 +49,25 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.save_item){
-            addNewShopItem()
+        when (item.itemId) {
+            R.id.save_item -> {
+                addNewShopItem()
+            }
+            R.id.delete_list -> {
+                mainViewModel.deleteShopList(shopListNameItem?.id!!, true)
+                finish()
+            }
+            R.id.clear_list -> {
+                mainViewModel.deleteShopList(shopListNameItem?.id!!, false)
+                finish()
+            }
+            R.id.share_list -> {
+                startActivity(
+                    Intent.createChooser(
+                        ShareHelper.shareShopList(
+                            adapter?.currentList!!, shopListNameItem?.name!!),
+                "Share by"))
+            }
         }
         return super.onOptionsItemSelected(item)
     }
