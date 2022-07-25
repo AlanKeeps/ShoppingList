@@ -12,6 +12,7 @@ import com.example.shoppinglist.R
 import com.example.shoppinglist.databinding.ActivityShopListBinding
 import com.example.shoppinglist.db.MainViewModel
 import com.example.shoppinglist.db.ShopListItemAdapter
+import com.example.shoppinglist.dialogs.EditListItemDialog
 import com.example.shoppinglist.entities.ShopListItem
 import com.example.shoppinglist.entities.ShopListNameItem
 
@@ -57,8 +58,8 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
         val item = ShopListItem(
             null,
             edItem?.text.toString(),
-            null,
-            0,
+            "",
+            false,
             shopListNameItem?.id!!,
             0
         )
@@ -107,15 +108,20 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
         const val SHOP_LIST_NAME = "shop_list_name"
     }
 
-    override fun deleteItem(id: Int) {
+    override fun onClickItem(shopListItem: ShopListItem, state: Int) {
+        when(state){
+            ShopListItemAdapter.CHECK_BOX -> mainViewModel.updateListItem(shopListItem)
+            ShopListItemAdapter.EDIT -> editListItem(shopListItem)
+        }
 
     }
 
-    override fun editItem(shopListName: ShopListNameItem) {
+    private fun editListItem(item: ShopListItem){
+        EditListItemDialog.showDialog(this, item, object : EditListItemDialog.Listener{
+            override fun onClick(item: ShopListItem) {
+                mainViewModel.updateListItem(item)
+            }
 
-    }
-
-    override fun onClickItem(shopListName: ShopListNameItem) {
-
+        })
     }
 }

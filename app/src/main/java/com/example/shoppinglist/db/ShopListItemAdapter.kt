@@ -43,8 +43,13 @@ class ShopListItemAdapter(private val listener: Listener): ListAdapter<ShopListI
                 tvName.text = shopListItem.name
                 tvInfo.text = shopListItem.itemInfo
                 tvInfo.visibility = infoVisibility(shopListItem)
+                chBox.isChecked = shopListItem.itemChecked
+                setPaintFlagAndColor(binding)
                 chBox.setOnClickListener {
-                    setPaintFlagAndColor(binding)
+                    listener.onClickItem(shopListItem.copy(itemChecked = chBox.isChecked), CHECK_BOX)
+                }
+                imEdit.setOnClickListener {
+                    listener.onClickItem(shopListItem, EDIT)
                 }
             }
         }
@@ -70,7 +75,7 @@ class ShopListItemAdapter(private val listener: Listener): ListAdapter<ShopListI
         }
 
         private fun infoVisibility(shopListItem: ShopListItem): Int{
-            return if (shopListItem.itemInfo.isNullOrEmpty()){
+            return if (shopListItem.itemInfo.isEmpty()){
                 View.GONE
             }else{
                 View.VISIBLE
@@ -101,8 +106,12 @@ class ShopListItemAdapter(private val listener: Listener): ListAdapter<ShopListI
     }
 
     interface Listener{
-        fun deleteItem(id: Int)
-        fun editItem(shopListName: ShopListNameItem)
-        fun onClickItem(shopListName: ShopListNameItem)
+        fun onClickItem(shopListItem: ShopListItem, state: Int)
+    }
+
+    companion object{
+        const val EDIT = 0
+        const val CHECK_BOX = 1
+
     }
 }
