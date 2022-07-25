@@ -12,7 +12,7 @@ data class ShopListItem(
     @ColumnInfo (name = "name")
     val name: String,
     @ColumnInfo (name = "itemInfo")
-    val itenInfo: String?,
+    val itemInfo: String?,
     @ColumnInfo (name = "itemChecked")
     val itemChecked: Int = 0,
     @ColumnInfo (name = "listId")
