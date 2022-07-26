@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppinglist.R
 import com.example.shoppinglist.databinding.ListNameItemBinding
+import com.example.shoppinglist.databinding.ShopLibraryListItemBinding
 import com.example.shoppinglist.databinding.ShopListItemBinding
 import com.example.shoppinglist.entities.ShopListNameItem
 import com.example.shoppinglist.entities.ShopListItem
@@ -55,7 +56,16 @@ class ShopListItemAdapter(private val listener: Listener): ListAdapter<ShopListI
         }
 
         fun setLibraryData(shopListItem: ShopListItem, listener: Listener){
-
+            val binding = ShopLibraryListItemBinding.bind(view)
+            binding.apply {
+                tvName.text = shopListItem.name
+                imEdit.setOnClickListener {
+                    listener.onClickItem(shopListItem, EDIT_LIBRARY_ITEM)
+                }
+                imDelete.setOnClickListener {
+                    listener.onClickItem(shopListItem, DELETE_LIBRARY_ITEM)
+                }
+            }
         }
 
         private fun setPaintFlagAndColor(binding: ShopListItemBinding){
@@ -112,6 +122,8 @@ class ShopListItemAdapter(private val listener: Listener): ListAdapter<ShopListI
     companion object{
         const val EDIT = 0
         const val CHECK_BOX = 1
+        const val EDIT_LIBRARY_ITEM = 2
+        const val DELETE_LIBRARY_ITEM = 3
 
     }
 }
