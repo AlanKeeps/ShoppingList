@@ -10,12 +10,12 @@
     </string-array>
 
     <string-array name="time_format_array">
-        <item>23:59:59 – 22/12/31</item>
         <item>23:59:59 – 31/12/22</item>
+        <item>23:59:59 – 22/12/31</item>
     </string-array>
     <string-array name="time_format_values">
-        <item>hh:mm:ss - yy/MM/dd</item>
-        <item>hh:mm:ss - dd/MM/yy</item>
+        <item>hh:mm:ss - dd/MM/yyyy</item>
+        <item>hh:mm:ss - yyyy/MM/dd</item>
     </string-array>
 
     <string-array name="chose_theme_array">

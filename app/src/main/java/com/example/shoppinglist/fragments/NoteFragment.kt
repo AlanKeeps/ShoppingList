@@ -2,14 +2,15 @@ package com.example.shoppinglist.fragments
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppinglist.activities.MainApp
 import com.example.shoppinglist.activities.NewNoteActivity
@@ -22,6 +23,8 @@ class NoteFragment : BaseFragment(), NoteAdapter.Listener {
     private lateinit var binding: FragmentNoteBinding
     private lateinit var editLauncher: ActivityResultLauncher<Intent>
     private lateinit var adapter: NoteAdapter
+    private lateinit var defPref: SharedPreferences
+
     private val mainViewModel: MainViewModel by activityViewModels {
         MainViewModel.MainViewModelFactory((context?.applicationContext as MainApp).database)
     }
@@ -52,7 +55,9 @@ class NoteFragment : BaseFragment(), NoteAdapter.Listener {
 
     private fun initRcView() = with(binding){
         rcViewNote.layoutManager = LinearLayoutManager(activity)
-        adapter = NoteAdapter(this@NoteFragment)
+//        defPref = PreferenceManager.getDefaultSharedPreferences(activity)
+        defPref = activity?.let { PreferenceManager.getDefaultSharedPreferences(it) }!!
+        adapter = NoteAdapter(this@NoteFragment, defPref)
         rcViewNote.adapter = adapter
     }
     

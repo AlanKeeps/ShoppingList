@@ -2,6 +2,7 @@ package com.example.shoppinglist.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,8 +16,10 @@ import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.EditText
 import androidx.core.content.ContextCompat
 import androidx.core.text.getSpans
+import androidx.preference.PreferenceManager
 import com.example.shoppinglist.R
 import com.example.shoppinglist.databinding.ActivityNewNoteBinding
 import com.example.shoppinglist.entities.NoteItem
@@ -30,6 +33,7 @@ import java.util.*
 class NewNoteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNewNoteBinding
     private var note: NoteItem? = null
+    private var pref: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +42,7 @@ class NewNoteActivity : AppCompatActivity() {
         actionBarSettings()
         getNote()
         init()
+        setTextSize()
         onClickColorPicker()
         actionMenuCallBack()
     }
@@ -66,6 +71,7 @@ class NewNoteActivity : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     private fun init(){
         binding.colorPicker.setOnTouchListener(MyTouchListener())
+        pref = PreferenceManager.getDefaultSharedPreferences(this)
     }
 
     private fun getNote(){
@@ -190,7 +196,7 @@ class NewNoteActivity : AppCompatActivity() {
             }
 
             override fun onAnimationRepeat(p0: Animation?) {
-                TODO("Not yet implemented")
+
             }
 
         })
@@ -220,4 +226,14 @@ class NewNoteActivity : AppCompatActivity() {
         }
         binding.edDescription.customSelectionActionModeCallback = actionCallBack
     }
+
+    private fun setTextSize() = with(binding){
+        edTitle.setTextSize(pref?.getString("title_text_size", "16"))
+        edDescription.setTextSize(pref?.getString("content_text_size", "14"))
+    }
+
+    private fun EditText.setTextSize(size: String?){
+        if(size != null) this.textSize = size.toFloat()
+    }
+
 }
