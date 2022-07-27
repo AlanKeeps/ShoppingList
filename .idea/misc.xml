@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/drawable/ic_settings.xml" value="0.2085" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/activity_new_note.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_settings.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/activity_shop_list.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/delete_dialog.xml" value="0.25" />
         <entry key="app/src/main/res/layout/edit_action_layout.xml" value="0.30885416666666665" />
@@ -23,6 +24,7 @@
         <entry key="app/src/main/res/menu/new_note_menu.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/menu/nw_note_menu.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/menu/shop_list_menu.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/xml/settings_preference.xml" value="0.1" />
       </map>
     </option>
   </component>
