@@ -18,4 +18,8 @@
     <color name="picker_orange">#C19B0F</color>
     <color name="grey">#8F8D8D</color>
     <color name="grey_light">#D5D2D2</color>
+    <color name="green_light">#379F03</color>
+    <color name="green_dark">#015701</color>
+    <color name="brown_light">#CC8203</color>
+    <color name="brown_dark">#7E5002</color>
 </resources>

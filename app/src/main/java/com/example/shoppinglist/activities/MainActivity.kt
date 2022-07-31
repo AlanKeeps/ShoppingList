@@ -1,9 +1,11 @@
 package com.example.shoppinglist.activities
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.preference.PreferenceManager
 import com.example.shoppinglist.R
 import com.example.shoppinglist.databinding.ActivityMainBinding
 import com.example.shoppinglist.dialogs.NewListDialog
@@ -16,10 +18,16 @@ class MainActivity : AppCompatActivity(), NewListDialog.Listener {
 
     lateinit var binding: ActivityMainBinding
     private var currentMenuItemId = R.id.shop_list
+    private lateinit var defPref: SharedPreferences
+    private var currentTheme = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        defPref = PreferenceManager.getDefaultSharedPreferences(this)
+        setTheme(getSelectedTheme())
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        currentTheme = defPref.getString("theme_key", "green").toString()
         setContentView(binding.root)
         FragmentManager.setFragment(ShopListNameFragment.newInstance(), this)
         setBottomNavListener()
@@ -50,6 +58,15 @@ class MainActivity : AppCompatActivity(), NewListDialog.Listener {
     override fun onResume() {
         super.onResume()
         binding.bNav.selectedItemId = currentMenuItemId
+        if (defPref.getString("theme_key", "green") != currentTheme) recreate()
+    }
+
+    private fun getSelectedTheme(): Int{
+        return if(defPref.getString("theme_key", "green") == "green"){
+            R.style.Theme_ShoppingListGreen
+        }else{
+            R.style.Theme_ShoppingListBrown
+        }
     }
 
     override fun onClick(name: String) {

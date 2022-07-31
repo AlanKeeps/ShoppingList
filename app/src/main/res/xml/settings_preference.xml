@@ -29,7 +29,7 @@
     <PreferenceCategory android:title="@string/theme_settings">
 
         <ListPreference
-            android:defaultValue="1"
+            android:defaultValue="Green theme"
             android:entries="@array/chose_theme_array"
             android:entryValues="@array/chose_theme_values"
             android:key="theme_key"
