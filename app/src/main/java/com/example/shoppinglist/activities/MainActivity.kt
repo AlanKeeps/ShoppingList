@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.preference.PreferenceManager
 import com.example.shoppinglist.R
+import com.example.shoppinglist.billing.BillingManager
 import com.example.shoppinglist.databinding.ActivityMainBinding
 import com.example.shoppinglist.dialogs.NewListDialog
 import com.example.shoppinglist.fragments.FragmentManager
@@ -29,18 +30,20 @@ class MainActivity : AppCompatActivity(), NewListDialog.Listener {
     private var iAd: InterstitialAd? = null
     private var adShowCounter = 0
     private var adShowCounterMax = 3
+    private lateinit var pref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         defPref = PreferenceManager.getDefaultSharedPreferences(this)
         setTheme(getSelectedTheme())
 
         super.onCreate(savedInstanceState)
+        pref = getSharedPreferences(BillingManager.MAIN_PREF, MODE_PRIVATE)
         binding = ActivityMainBinding.inflate(layoutInflater)
         currentTheme = defPref.getString("theme_key", "green").toString()
         setContentView(binding.root)
         FragmentManager.setFragment(ShopListNameFragment.newInstance(), this)
         setBottomNavListener()
-        loadInterAd()
+        if (!pref.getBoolean(BillingManager.REMOVE_ADS_KEY, false))loadInterAd()
     }
 
     private fun loadInterAd(){
@@ -61,7 +64,7 @@ class MainActivity : AppCompatActivity(), NewListDialog.Listener {
     }
 
     private fun showInterAd(adListener: AdListener){
-        if(iAd != null && adShowCounter > adShowCounterMax){
+        if(iAd != null && adShowCounter > adShowCounterMax && !pref.getBoolean(BillingManager.REMOVE_ADS_KEY, false)){
             iAd?.fullScreenContentCallback = object : FullScreenContentCallback(){
                 override fun onAdDismissedFullScreenContent() {
                     iAd = null

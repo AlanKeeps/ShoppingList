@@ -21,8 +21,9 @@
             app:useSimpleSummaryProvider="true"
             android:title="@string/chose_time_format" />
         <Preference
-            android:title="@string/remove_adds"
-            android:summary="@string/remove_adds_summary"
+            android:title="@string/remove_ads"
+            android:summary="@string/remove_ads_summary"
+            android:key="remove_ads_key"
             android:icon="@drawable/ic_remove_adds"
             />
     </PreferenceCategory>
