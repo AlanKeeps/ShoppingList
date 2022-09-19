@@ -5,7 +5,7 @@
 В качестве бд использовал Room и из нее же берутся подсказки для списка покупок(так как по сути продукты одни и те же).
 Отрисовка элементов через RecyclerView. 
 Есть возможность изменения стиля как текста(жирный текст и разный цвет) так же варианты отрисовки элементов Grid/Layout.
-Так же есть тестовая interAd реклама
+Так же есть тестовая interAd реклама /n
 ![2022-09-19 15 27 55](https://user-images.githubusercontent.com/87909372/191017161-67fe6091-84d0-44f5-be74-0a8700158f60.jpg)
 ![telegram-cloud-photo-size-2-5280641172534050377-y](https://user-images.githubusercontent.com/87909372/191017637-95ae08c2-c31a-4e62-8255-081409ef181b.jpg)
 ![telegram-cloud-photo-size-2-5280641172534050378-y](https://user-images.githubusercontent.com/87909372/191017695-23ba5ff5-a6f1-4996-9585-b04a5a1df621.jpg)
